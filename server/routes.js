@@ -15,6 +15,22 @@ module.exports = function(app) {
 
   app.use('/api/events', require('./api/event'));
 
+  app.use('/api/login', function(req, res) {
+
+        console.log("/api/login - User with "+req.body.userName+" signed into the application.");
+        // render the page and pass in any flash data if it exists
+
+        res.send(200);
+    });
+
+
+  app.use('/api/logout', function(req, res) {
+
+        console.log("/api/login - User with "+req.body.userName+" signed out the application.");
+        // render the page and pass in any flash data if it exists
+
+        res.send(200);
+    });
 
   
   // All undefined asset or api routes should return a 404

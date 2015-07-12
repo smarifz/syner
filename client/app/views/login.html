@@ -1,0 +1,28 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Events</h1>
+    <p class="lead">Active events</p>
+    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+  </div>
+</header>
+
+
+
+<div class="container" data-ng-init="init()">
+  <h1 class="page-header">Login:</h1>
+  <form ng-submit="login()">
+    <div class="form-group">
+      <label for="userName">Username:</label>
+      <input name="userName" type="text" class="form-control" id="userName" placeholder="Username" ng-model="userName">
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input name="location" type="text" class="form-control" id="password" placeholder="Location" ng-model="password">
+    </div> 
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+
+</div>
+

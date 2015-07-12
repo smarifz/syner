@@ -8,6 +8,8 @@ angular.module('synerApp')
 
 
     var getEventRequest = function(id) {
+      		console.log("Service - getEventRequest");
+
       		return $http.get('/api/events/get/'+id);
     	}
 
@@ -15,7 +17,7 @@ angular.module('synerApp')
     //   //Sends all the data to http factory which calls the API
     
     var addEventRequest = function(eventData){
-      $http({
+      return $http({
 	          url: '/api/events/add',
 	          method: "POST",
 	          data: 
@@ -25,18 +27,8 @@ angular.module('synerApp')
 	              date      : eventData.date,
 	              attendees : eventData.attendees
 	          }
-	      })
-	      .then(function(response) {
-	        // success
-	        console.log("Post successful. New Event Added.");
-	        // referesh allEvent table with new entered events
-	      }, 
-	      function(response) { // optional
-	        // failed
-	        console.log("Post Failed. .");
-
 	      });
-  		}
+  	}
 
 
 	var deleteEventRequest = function(event){

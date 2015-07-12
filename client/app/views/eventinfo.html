@@ -1,0 +1,21 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Event Info Page</h1>
+    <p class="lead">Below are all the events currently on schedule</p>
+    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+  </div>
+</header>
+
+<div class="container" data-ng-init="init()">
+<!-- Columns are always 50% wide, on mobile and desktop -->
+<table class="table table-hover table table-condensed" ng-repeat="data in eventInfo">
+  <tr>
+    <td> <a href="#">{{data.name}}</a></td>
+    <td> {{data.location | uppercase}}</td>
+  </tr>
+</table>
+</div>
+
+

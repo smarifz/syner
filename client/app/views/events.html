@@ -42,7 +42,7 @@
   <!-- Columns are always 50% wide, on mobile and desktop -->
   <table class="table table-hover table table-condensed" ng-repeat="event in allEvents">
     <tr>
-      <td> <a href="#">{{event.name}}</a></td>
+      <td> <a ng-href="/eventInfo/{{event._id}}" ng-click="getEvent(event._id)">{{event.name}}</a></td>
       <td> {{event.location | uppercase}}</td>
       <td> {{event.date | date}}</td>
     </tr>

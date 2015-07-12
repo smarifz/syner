@@ -2,20 +2,20 @@
 
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
+    <h1>Users</h1>
+    <p class="lead">List of Users</p>
     <img src="assets/images/yeoman.png" alt="I'm Yeoman">
   </div>
 </header>
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Users:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="users in allUsers">
-        <li><a href="#" tooltip="{{users.info}}">{{users.name}}</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
 
+<br><br><br>
+<div class="container" data-ng-init="init()">
+  <!-- Columns are always 50% wide, on mobile and desktop -->
+  <table class="table table-hover table table-condensed" ng-repeat="users in allUsers">
+    <tr>
+      <td> <a href="#">{{users.name}}</a></td>
+      <td> {{users.role | uppercase}}</td>
+    </tr>
+  </table>
+</div>

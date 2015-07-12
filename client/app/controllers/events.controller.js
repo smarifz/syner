@@ -32,6 +32,18 @@ angular.module('synerApp')
       
     }
 
+    //Get an Event via ID/////////////////////////////////////////////////////////////////////
+    $scope.getEvent = function(id) {
+      console.log("Controller - getEvent");
+      EventService.getEvent(id).success(function(data){
+
+        console.log(data);
+
+      });
+      
+    };
+
+
     //Delete an Event /////////////////////////////////////////////////////////////////////
     $scope.deleteEvent = function(event) {
       
@@ -45,51 +57,4 @@ angular.module('synerApp')
        $scope.eventTotalAttnds = "";
     }
 
-
-    // $scope.init = function() {
-    //     $http.get('/api/events/get').success(function(allEvents) {
-    //     $scope.allEvents = allEvents;
-    //   });
-    // } 
-
-    // $scope.addEvent = function() {
-    //   if($scope.eventName === '') {
-    //     return;
-    //   }
-      
-    //   console.log("name "+ $scope.eventName+ " venue: "+ $scope.eventVenue );
-
-    //   //Sends all the data to http factory which calls the API
-    //   $http({
-    //       url: '/api/events/add',
-    //       method: "POST",
-    //       data: 
-    //       {
-    //           name      : $scope.eventName,
-    //           location  :$scope.eventLocation,
-    //           date      : $scope.eventDate,
-    //           attendees : $scope.eventTotalAttnds
-    //       }
-    //   })
-    //   .then(function(response) {
-    //     // success
-    //     console.log("Post successful. New Event Added.");
-    //     // referesh allEvent table with new entered events
-    //     $scope.init();
-    //   }, 
-    //   function(response) { // optional
-    //     // failed
-    //     console.log("Post Failed. .");
-
-    //   });
-
-    //    $scope.eventName = '';
-    //    $scope.eventVenue = '';
-
-
-    // };
-
-    // $scope.deleteEvent = function(event) {
-    //   $http.delete('/api/events/' + event._id);
-    // };
   });

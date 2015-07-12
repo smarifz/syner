@@ -1,22 +1,48 @@
 'use strict';
 
 angular.module('synerApp')
-  .controller('UserCtrl', function ($scope, $http) {
+  .controller('UserCtrl', function ($scope, UserService) {
     $scope.allUsers = [];
 
-    $http.get('/api/users').success(function(allUsers) {
-      $scope.allUsers = allUsers;
-    });
+    //Initialize /////////////////////////////////////////////////////////////////////
+    $scope.init = function() {
+        UserService.getUsers()
+        .success(function(data, status, headers) {
+          $scope.allUsers = data;
+                    console.log($scope.allUsers);
 
+        })
+    } 
+
+    //Add an event /////////////////////////////////////////////////////////////////////
     $scope.addUser = function() {
-      if($scope.newUser === '') {
-        return;
-      }
-      $http.post('/api/users', { name: $scope.newUser });
-      $scope.newUser = '';
+      var data = 
+          {
+              name      : $scope.userName,
+              password  : $scope.password,
+              role      : $scope.userRole
+          }
+
+      console.log("addEvent data: "+data);
+      UserService.addUser(data)
+        .success(function(data, status, headers) {
+        $scope.init(); //Fill table with recent data from DB.
+        $scope.clearFields(); //Clear input fields
+
+      });
+      
+    }
+
+    //Delete an Event /////////////////////////////////////////////////////////////////////
+    $scope.deleteEvent = function(event) {
+      
     };
 
-    $scope.deleteUser = function(user) {
-      $http.delete('/api/users/' + user._id);
-    };
+    //Clear input fields /////////////////////////////////////////////////////////////////////
+    $scope.clearFields = function(){
+       $scope.userName = "";
+       $scope.password = "";
+       $scope.userRole = "";
+    }
+
   });

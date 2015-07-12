@@ -11,6 +11,12 @@ angular.module('synerApp')
     }, {
       'title': 'Events',
       'link': '/events'
+    },{
+      'title': 'Login',
+      'link': '/login'
+    },{
+      'title': 'Logout',
+      'link': '/logout'
     }];
 
     $scope.isCollapsed = true;
