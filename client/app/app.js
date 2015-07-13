@@ -85,6 +85,21 @@ var app = angular.module('synerApp', [
         }
       })
 
+      .when('/register', {
+        templateUrl: 'app/views/register.html',
+        controller: 'UserCtrl',
+        resolve: {
+            auth: function ($q, authenticationSvc) {
+                var userInfo = authenticationSvc.getUserInfo();
+                if (userInfo) {
+                    return $q.when(userInfo);
+                } else {
+                    return $q.reject({ authenticated: false });
+                }
+            }
+        }
+      })
+
       .when('/login', {
         templateUrl: 'app/views/login.html',
         controller: 'LoginCtrl',

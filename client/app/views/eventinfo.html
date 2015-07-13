@@ -7,13 +7,30 @@
     <img src="assets/images/yeoman.png" alt="I'm Yeoman">
   </div>
 </header>
+<br><br>
+
+<div class="container" ng-click="willAttend()"type="text" data-ng-model="attending" id="attending" class="form-control">
+  <a> Attending </a>
+</div>
+
+
+<br><br>
+
 
 <div class="container" data-ng-init="init()">
 <!-- Columns are always 50% wide, on mobile and desktop -->
-<table class="table table-hover table table-condensed" ng-repeat="data in eventInfo">
+<table class="table table-hover table table-condensed" ng-model="eventInfo">
   <tr>
-    <td> <a href="#">{{data.name}}</a></td>
-    <td> {{data.location | uppercase}}</td>
+    <th> Name: </th>
+    <td>   {{ eventInfo.name }}</a></td>
+  </tr>
+  <tr>
+      <th> Location: </th>
+      <td>  {{ eventInfo.location }}</a></td>
+  </tr>
+  <tr>
+    <th> Players: </th>
+    <td ng-repeat="players in eventInfo.attendees">  {{ players }}</a></td>
   </tr>
 </table>
 </div>

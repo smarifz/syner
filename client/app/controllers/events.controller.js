@@ -34,11 +34,9 @@ angular.module('synerApp')
 
     //Get an Event via ID/////////////////////////////////////////////////////////////////////
     $scope.getEvent = function(id) {
-      console.log("Controller - getEvent");
+
       EventService.getEvent(id).success(function(data){
-
-        console.log(data);
-
+        console.log("Event added.");
       });
       
     };

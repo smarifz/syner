@@ -17,8 +17,9 @@ module.exports = function(app) {
 
   app.use('/api/login', function(req, res) {
 
-        console.log("/api/login - User with "+req.body.userName+" signed into the application.");
+        console.log("/api/login - User named \""+req.body.userName+"\" signed into the application.");
         // render the page and pass in any flash data if it exists
+
 
         res.send(200);
     });

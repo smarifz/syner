@@ -12,8 +12,7 @@ angular.module('synerApp')
     	}
 
 
-    //   //Sends all the data to http factory which calls the API
-    
+    //Sends all the data to http factory which calls the API
     var addUserRequest = function(userData){
       return $http({
 	          url: '/api/users/add',

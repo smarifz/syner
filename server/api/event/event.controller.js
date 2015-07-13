@@ -48,8 +48,9 @@ exports.create = function(req, res) {
 
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
+
   if(req.body._id) { delete req.body._id; }
-  Event.findById(req.params.id, function (err, event) {
+  Event.findByIdAndUpdate(req.params.id, req.body, function (err, event) {
     if (err) { return handleError(res, err); }
     if(!event) { return res.send(404); }
     var updated = _.merge(event, req.body);
@@ -58,6 +59,32 @@ exports.update = function(req, res) {
       return res.json(200, event);
     });
   });
+
+  //ORIGINAL CODE BELOW///////////////////// 
+
+  // if(req.body._id) { delete req.body._id; }
+  // Event.findByIdAndUpdate(req.params.id, req.body, function (err, event) {
+  //   if (err) { return handleError(res, err); }
+  //   if(!event) { return res.send(404); }
+  //   var updated = _.merge(event, req.body);
+  //   updated.save(function (err) {
+  //     if (err) { return handleError(res, err); }
+  //     return res.json(200, event);
+  //   });
+  // });
+
+  //HACKED CODE //////////////
+   //  Event.findByIdAndUpdate(
+   //  req.params.id,
+   // { $push: { 'attendees': 'new player' } },function(err,model){
+   //    if(err){
+   //      console.log(err);
+   //      return res.send(err);
+   //      }
+   //      return res.json(model);
+   //  });
+
+
 };
 
 // Deletes a thing from the DB.
