@@ -4,7 +4,7 @@ angular.module('synerApp')
 
     //Get all the events 
     var getEventsRequest = function() {
-      		return $http.get('/api/user/get');
+      		return $http.get('/api/events/get');
     	}
 
     //Get one event using ID
