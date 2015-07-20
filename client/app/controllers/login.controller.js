@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('synerApp')
-.controller("LoginCtrl", ["$scope", "$location", "$window", "authenticationSvc",function ($scope, $location, $window, authenticationSvc) {
+.controller("LoginCtrl", function ($scope, $location, $window, AuthService) {
 	
 	$scope.userInfo = null;
 	$scope.usernameStorage = "nobody";
@@ -13,31 +13,18 @@ angular.module('synerApp')
     }
 
     $scope.login = function () {
-        authenticationSvc.login($scope.userName, $scope.password)
-            .then(function (result) {
-                $scope.userInfo = result;
-
-                //usernameStore is null because result is not passing anything back from the api call.
-                //once User model is set then this will work 
-                $scope.usernameStorage = result.userName;
-                $location.path("/");
-            }, function (error) {
-                $window.alert("Invalid credentials");
-                console.log(error);
-            });
+        console.log("login.controller.js login- userName: "+userName);
+        AuthService.logIn($scope.username).error(function(error){
+          $scope.error = error;
+        }).then(function(){
+          // $state.go('home');
+        });
     };
 
-    $scope.logout = function () {
-    console.log($scope.usernameStorage);
 
-      authenticationSvc.logout()
-            .then(function (result) {
-                $scope.userInfo = null;
-                // $location.path("/login");
-            }, function (error) {
-                console.log(error);
-            });
-        };
+    $scope.logout = function () {
+
+    };
 
     $scope.cancel = function () {
         $scope.userName = "";
@@ -50,4 +37,4 @@ angular.module('synerApp')
 
 
 
-}]);
+});

@@ -12,18 +12,20 @@ var app = angular.module('synerApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'app/views/main.html',
-        controller: 'MainCtrl',
+        controller: 'MainCtrl',        
         resolve: {
-            auth: function ($q, authenticationSvc) {
-                var userInfo = authenticationSvc.getUserInfo();
-                if (userInfo) {
-                    return $q.when(userInfo);
-                } else {
-                    return $q.reject({ authenticated: false });
-                }
+            auth: function(AuthService, $location){
+              if(AuthService.isLoggedIn()){
+                console.log("User is logged in.");
+                $location.url('/');
+              }else
+                console.log("No user logged.");
+                $location.url('/login');
+
             }
         }
-    })
+      })
+
 
       .when('/users', {
         templateUrl: 'app/views/users.html',
@@ -102,13 +104,24 @@ var app = angular.module('synerApp', [
 
       .when('/login', {
         templateUrl: 'app/views/login.html',
-        controller: 'LoginCtrl',
+        controller: 'AuthCtrl',
+        resolve: {
+            auth: function(AuthService, $location){
+              if(AuthService.isLoggedIn()){
+                console.log("User is logged in.");
+                $location.url('/');
+              }else
+                console.log("No user logged.");
+                $location.url('/login');
+
+            }
+        }
       })
 
 
       .when('/logout', {
         templateUrl: 'app/views/logout.html',
-        controller: 'LoginCtrl',
+        controller: 'AuthCtrl',
       });
       // .otherwise({
       //   redirectTo: '/'

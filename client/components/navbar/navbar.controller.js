@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('synerApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
+  .controller('NavbarCtrl', function ($scope, $location, AuthService) {
+
+    $scope.isLoggedIn = AuthService.isLoggedIn;
+    $scope.currentUser = AuthService.currentUser;
+    $scope.logOut = AuthService.logOut;
+    
     $scope.menu = [{
       'title': 'Home',
       'link': '/'

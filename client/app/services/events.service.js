@@ -1,6 +1,9 @@
 //Service for getting and setting data into MongoDB via API.
 angular.module('synerApp')
-  .service('EventService', ['$http', function($http) {
+  .service('EventService', ['$http', 'AuthService', function($http, $AuthService) {
+
+  	$scope.isLoggedIn = AuthService.isLoggedIn;
+
 
     //Get all the events 
     var getEventsRequest = function() {
@@ -18,6 +21,7 @@ angular.module('synerApp')
       return $http({
 	          url: '/api/events/add',
 	          method: "POST",
+              headers: {Authorization: 'Bearer '+AuthService.getToken()},
 	          data: 
 	          {
 	              name      : eventData.name,

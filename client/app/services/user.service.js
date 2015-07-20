@@ -1,6 +1,9 @@
 //Service for getting and setting data into MongoDB via API.
 angular.module('synerApp')
-  .service('UserService', ['$http', function($http) {
+  .service('UserService', ['$http', 'auth', function($http, $auth) {
+
+  	$scope.isLoggedIn = auth.isLoggedIn;
+
 
     var getUsersRequest = function() {
       		return $http.get('/api/users/get');

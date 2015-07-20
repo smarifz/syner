@@ -12,14 +12,14 @@
 
 <div class="container" data-ng-init="init()">
   <h1 class="page-header">Login:</h1>
-  <form ng-submit="login()">
+  <form ng-submit="logIn()">
     <div class="form-group">
       <label for="userName">Username:</label>
-      <input name="userName" type="text" class="form-control" id="userName" placeholder="Username" ng-model="userName">
+      <input name="userName" type="text" class="form-control" placeholder="username" ng-model="userName">
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
-      <input name="location" type="text" class="form-control" id="password" placeholder="Location" ng-model="password">
+      <input name="password" type="text" class="form-control" id="password" placeholder="password" ng-model="password">
     </div> 
     <button type="submit" class="btn btn-default">Submit</button>
   </form>

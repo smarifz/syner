@@ -10,7 +10,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
-
+var passport = require('passport');
 
 
 // Connect to database
@@ -21,12 +21,16 @@ if(config.seedDB) { require('./config/seed'); }
 
 // Setup server
 var app = express();
+app.use(passport.initialize());
+
+
 var server = require('http').createServer(app);
-
-
+var router = express.Router();
 
 require('./config/express')(app);
 require('./routes')(app);
+
+
 
 
 // Start server

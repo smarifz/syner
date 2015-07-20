@@ -15,6 +15,8 @@ var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
 
+
+
 module.exports = function(app) {
   var env = app.get('env');
 
@@ -22,10 +24,13 @@ module.exports = function(app) {
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');
   app.use(compression());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
+  app.use(bodyParser.json()); // for parsing application/json
+  app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+
+
 
   
   if ('production' === env) {
