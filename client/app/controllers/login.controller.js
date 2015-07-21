@@ -23,6 +23,7 @@ angular.module('synerApp')
 
 
     $scope.logout = function () {
+        AuthService.logOut();
 
     };
 

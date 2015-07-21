@@ -12,18 +12,18 @@ var app = angular.module('synerApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'app/views/main.html',
-        controller: 'MainCtrl',        
+        controller: 'MainCtrl',
         resolve: {
-            auth: function(AuthService, $location){
-              if(AuthService.isLoggedIn()){
-                console.log("User is logged in.");
-                $location.url('/');
-              }else
-                console.log("No user logged.");
-                $location.url('/login');
-
-            }
-        }
+          auth: ["$q", "AuthService", function($q, AuthService) {
+          var isUserLoggedIn = AuthService.isLoggedIn();
+          if(isUserLoggedIn){
+            console.log("User Logged in");
+            return $q.when(isUserLoggedIn);
+          }else{
+            console.log("ERROR - No User Logged in");
+            return $q.reject({ authenticated: false });
+          }
+        }]}      
       })
 
 
@@ -31,108 +31,104 @@ var app = angular.module('synerApp', [
         templateUrl: 'app/views/users.html',
         controller: 'UserCtrl',
         resolve: {
-            auth: function ($q, authenticationSvc) {
-                var userInfo = authenticationSvc.getUserInfo();
-                if (userInfo) {
-                    return $q.when(userInfo);
-                } else {
-                    return $q.reject({ authenticated: false });
-                }
-            }
-        }
+          auth: ["$q", "AuthService", function($q, AuthService) {
+          var isUserLoggedIn = AuthService.isLoggedIn();
+          if(isUserLoggedIn){
+            console.log("User Logged in");
+            return $q.when(isUserLoggedIn);
+          }else{
+            console.log("ERROR - No User Logged in");
+            return $q.reject({ authenticated: false });
+          }
+        }]} 
       })
 
       .when('/events', {
         templateUrl: 'app/views/events.html',
         controller: 'EventCtrl',
         resolve: {
-            auth: function ($q, authenticationSvc) {
-                var userInfo = authenticationSvc.getUserInfo();
-                if (userInfo) {
-                    return $q.when(userInfo);
-                } else {
-                    return $q.reject({ authenticated: false });
-                }
-            }
-        }
+          auth: ["$q", "AuthService", function($q, AuthService) {
+          var isUserLoggedIn = AuthService.isLoggedIn();
+          if(isUserLoggedIn){
+            console.log("User Logged in");
+            return $q.when(isUserLoggedIn);
+          }else{
+            console.log("ERROR - No User Logged in");
+            return $q.reject({ authenticated: false });
+          }
+        }]}
       })
 
       .when('/events/list', {
         templateUrl: 'app/views/eventList.html',
         controller: 'EventListCtrl',
         resolve: {
-            auth: function ($q, authenticationSvc) {
-                var userInfo = authenticationSvc.getUserInfo();
-                if (userInfo) {
-                    return $q.when(userInfo);
-                } else {
-                    return $q.reject({ authenticated: false });
-                }
-            }
-        }
+          auth: ["$q", "AuthService", function($q, AuthService) {
+          var isUserLoggedIn = AuthService.isLoggedIn();
+          if(isUserLoggedIn){
+            console.log("User Logged in");
+            return $q.when(isUserLoggedIn);
+          }else{
+            console.log("ERROR - No User Logged in");
+            return $q.reject({ authenticated: false });
+          }
+        }]}
       })
 
       .when('/eventInfo/:id', {
         templateUrl: 'app/views/eventInfo.html',
         controller: 'EventInfoCtrl',
         resolve: {
-            auth: function ($q, authenticationSvc) {
-                var userInfo = authenticationSvc.getUserInfo();
-                if (userInfo) {
-                    return $q.when(userInfo);
-                } else {
-                    return $q.reject({ authenticated: false });
-                }
-            }
-        }
+          auth: ["$q", "AuthService", function($q, AuthService) {
+          var isUserLoggedIn = AuthService.isLoggedIn();
+          if(isUserLoggedIn){
+            console.log("User Logged in");
+            return $q.when(isUserLoggedIn);
+          }else{
+            console.log("ERROR - No User Logged in");
+            return $q.reject({ authenticated: false });
+          }
+        }]}
       })
 
       .when('/register', {
         templateUrl: 'app/views/register.html',
         controller: 'UserCtrl',
         resolve: {
-            auth: function ($q, authenticationSvc) {
-                var userInfo = authenticationSvc.getUserInfo();
-                if (userInfo) {
-                    return $q.when(userInfo);
-                } else {
-                    return $q.reject({ authenticated: false });
-                }
-            }
-        }
+          auth: ["$q", "AuthService", function($q, AuthService) {
+          var isUserLoggedIn = AuthService.isLoggedIn();
+          if(isUserLoggedIn){
+            console.log("User Logged in");
+            return $q.when(isUserLoggedIn);
+          }else{
+            console.log("ERROR - No User Logged in");
+            return $q.reject({ authenticated: false });
+          }
+        }]}
       })
 
       .when('/login', {
         templateUrl: 'app/views/login.html',
-        controller: 'AuthCtrl',
-        resolve: {
-            auth: function(AuthService, $location){
-              if(AuthService.isLoggedIn()){
-                console.log("User is logged in.");
-                $location.url('/');
-              }else
-                console.log("No user logged.");
-                $location.url('/login');
+        controller: 'AuthCtrl'
 
-            }
-        }
       })
 
 
       .when('/logout', {
         templateUrl: 'app/views/logout.html',
         controller: 'AuthCtrl',
+      })
+
+      .otherwise({
+        redirectTo: '/'
       });
-      // .otherwise({
-      //   redirectTo: '/'
-      // });
 
     $locationProvider.html5Mode(true);
   });
 
 app.run(["$rootScope", "$location", function ($rootScope, $location) {
 
-  // console.log("routeChangeSuccess ")
+  console.log("routeChangeSuccess ")
 
     $rootScope.$on("$routeChangeSuccess", function (userInfo) {
         // console.log(userInfo);
@@ -140,6 +136,7 @@ app.run(["$rootScope", "$location", function ($rootScope, $location) {
 
     $rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
         if (eventObj.authenticated === false) {
+            console.log("Error occured. Now in routeChangeError");
             $location.path("/login");
         }
     });

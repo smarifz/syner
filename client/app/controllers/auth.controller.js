@@ -14,12 +14,13 @@ angular.module('synerApp')
   $scope.logIn = function(){
       console.log("login.controller.js login- userName: "+$scope.userName);
 
-     // var loginData = $scope.appForm.data; 
-
-    AuthService.logIn($scope.userName).error(function(error){
-      $scope.error = error;
-    }).then(function(){
-      $location.url('/login');
+    AuthService.logIn($scope.userName).then(function(){
+      $location.url('/');
     });
   };
+
+  $scope.logout = function () {
+    AuthService.logOut();
+
+};
 })

@@ -20,16 +20,16 @@ exports.index = function(req, res) {
   });
 };
 
-// Get a single thing
+// Get a single user
 exports.show = function(req, res) {
   User.findById(req.params.id, function (err, user) {
     if(err) { return handleError(res, err); }
-    if(!thing) { return res.send(404); }
+    if(!user) { return res.send(404); }
     return res.json(user);
   });
 };
 
-// Creates a new thing in the DB.
+// Creates a new user in the DB.
 exports.create = function(req, res) {
   User.create(req.body, function(err, user) {
     if(err) { return handleError(res, err); }
@@ -37,7 +37,7 @@ exports.create = function(req, res) {
   });
 };
 
-// Updates an existing thing in the DB.
+// Updates an existing user in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   User.findById(req.params.id, function (err, user) {
@@ -51,7 +51,7 @@ exports.update = function(req, res) {
   });
 };
 
-// Deletes a thing from the DB.
+// Deletes a user from the DB.
 exports.destroy = function(req, res) {
   User.findById(req.params.id, function (err, user) {
     if(err) { return handleError(res, err); }

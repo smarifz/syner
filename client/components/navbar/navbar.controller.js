@@ -4,6 +4,7 @@ angular.module('synerApp')
   .controller('NavbarCtrl', function ($scope, $location, AuthService) {
 
     $scope.isLoggedIn = AuthService.isLoggedIn;
+    // console.log('Nav bar login called AuthService.isLoggedIn()');
     $scope.currentUser = AuthService.currentUser;
     $scope.logOut = AuthService.logOut;
     

@@ -2,42 +2,46 @@ angular.module('synerApp')
 .service('AuthService', ['$http','$q','$window',function ($http, $q, $window) {
     var auth = {};
 
+
+
     var saveToken = function (token){
-      $window.localStorage['flapper-news-token'] = token;
+        $window.localStorage['flapper-news-token'] = token;
     };
 
     var getToken = function (){
-      return $window.localStorage['flapper-news-token'];
+        return $window.localStorage['flapper-news-token'];
     }
 
     var isLoggedInRequest = function(){
-      var token = getToken();
-      // console.log("auth.service.js isLoggedInRequest - Token: "+token);
+        var token = getToken();
+        console.log("auth.service.js isLoggedInRequest - Token: "+token);
 
-      if(token && token != 'undefined'){
-        // var payload = JSON.parse($window.atob(token.split('.')[1]));
-        var payload = window.atob(window.localStorage[token].split('.')[1]);
-
-
-        return payload.exp > Date.now() / 1000;
-      } else {
+        if(token == 'undefined'){
+        console.log("Token is undefined");
         return false;
-      }
+        }
+
+        if(token){
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
+        // var payload = window.atob(window.localStorage[token].split('.')[1]);
+        return payload.exp > Date.now() / 1000;
+        } else {
+        return false;
+        }
     };
 
     var getToken = function (){
-      return $window.localStorage['flapper-news-token'];
+        return $window.localStorage['flapper-news-token'];
     }
 
     var currentUserRequest = function(){
-      if(isLoggedInRequest()){
-        var token = getTokenRequest();
-        // var payload = JSON.parse($window.atob(token.split('.')[1]));
-        var payload = window.atob(window.localStorage[token].split('.')[1])
-
-
-        return payload.username;
-      }
+        console.log("Calling isLoggedInRequest from currentUserRequest");
+        if(isLoggedInRequest()){
+            var token = getToken();
+            var payload = JSON.parse($window.atob(token.split('.')[1]));
+            // var payload = window.atob(window.localStorage[token].split('.')[1])
+            return payload.username;
+        }
     };
 
     //REGISTER /////////////////////////////
@@ -52,19 +56,18 @@ angular.module('synerApp')
         console.log("auth.service.js logInRequest - Username: "+userName);
         var password = "paSSword";
 
-        var data = { username: userName, password: password };
+        // var data = { username: userName, password: password };
 
-        $http.post('/api/login', { username: userName, password: password })
+        return $http.post('/api/login', { username: userName, password: password })
             .success(function (data, status, headers, config) {
-                console.log("auth.service.js logInRequest success");
                 saveToken(data.token);
-            }).error(function (data, status, headers, config) {
-                // handle error things
+                console.log("auth.service.js logInRequest success");
             });
     };
 
     var logOutRequest = function(){
       $window.localStorage.removeItem('flapper-news-token');
+      console.log("User logged out. Token removed from localStorage.");
     };
 
 

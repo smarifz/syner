@@ -8,11 +8,13 @@
 module.exports = function(app) {
 
   var errors = require('./components/errors');
-  var User = require('./api/user');
+  var User = require('./api/user/user.model');
   var Event = require('./api/event');
   var express = require('express');
   var jwt = require('express-jwt');
   var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+  var passport = require('passport');
+
 
 
   app.use('/api/users', User);
@@ -21,30 +23,19 @@ module.exports = function(app) {
 
   //LOGIN ///////////////////////
   app.post('/api/login', function(req, res, next){
-
-      // if (!req.param.username) return res.sendStatus(400);
-
-    console.log(req.body);
-
-    if(!req.param.username || !req.param.password){
+    if(!req.body.username || !req.body.password){
       return res.status(400).json({message: 'Please fill out all fields'});
     }
 
-    User.username = req.param.username;
-    user.setPassword(req.param.password)
-    user.save(function (err){
-        if(err){ return next(err); }
+    passport.authenticate('local', function(err, user, info){
+      if(err){ return next(err); }
 
-    console.log("route.js /api/login - User named \""+req.param.username+"\" signed into the application.");
-
-      return res.json({token: user.generateJWT()})
-    });
-
-
-
-     res.send(200);
-
-
+      if(user){
+        return res.json({token: user.generateJWT()});
+      } else {
+        return res.status(401).json(info);
+      }
+    })(req, res, next);
   });
 
   //REGISTER ///////////////////////
