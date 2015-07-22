@@ -3,15 +3,14 @@
 var express = require('express');
 var controller = require('./user.controller');
 var jwt = require('express-jwt');
-var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
-
+var auth = jwt({secret: 'SECRET'});
 var router = express.Router();
 
 router.get('/get', auth, controller.index);
-router.get('/get/:id', controller.show);
-router.post('/add', controller.create);
-router.put('/update/:id', controller.update);
-router.patch('/:id', controller.update);
-router.delete('/delete/:id', controller.destroy);
+router.get('/get/:id', auth, controller.show);
+router.post('/add', auth, controller.create);
+router.put('/update/:id', auth, controller.update);
+router.patch('/:id', auth, controller.update);
+router.delete('/delete/:id', auth, controller.destroy);
 
 module.exports = router;

@@ -1,9 +1,6 @@
 //Service for getting and setting data into MongoDB via API.
 angular.module('synerApp')
-  .service('EventService', ['$http', 'AuthService', function($http, $AuthService) {
-
-  	$scope.isLoggedIn = AuthService.isLoggedIn;
-
+  .service('EventService', ['$http', 'AuthService', function($http, AuthService) {
 
     //Get all the events 
     var getEventsRequest = function() {
@@ -12,24 +9,37 @@ angular.module('synerApp')
 
     //Get one event using ID
     var getEventRequest = function(id) {
-      		return $http.get('/api/user/get/'+id);
+      		return $http.get('/api/events/get/'+id);
     	}
 
 
     //Sends all the data to http factory which calls the API
     var addEventRequest = function(eventData){
-      return $http({
-	          url: '/api/events/add',
-	          method: "POST",
-              headers: {Authorization: 'Bearer '+AuthService.getToken()},
-	          data: 
+      // return $http({
+	     //      url: '/api/events/add',
+	     //      method: "POST",
+	     //      data: 
+	     //      {
+	     //          name      : eventData.name,
+	     //          location  : eventData.location,
+	     //          date      : eventData.date,
+	     //          attendees : eventData.attendees
+	     //      },
+	     //      headers: {Authorization: 'JWT '+AuthService.getToken}
+	     //  });
+
+  		var data = 
 	          {
 	              name      : eventData.name,
 	              location  : eventData.location,
 	              date      : eventData.date,
 	              attendees : eventData.attendees
 	          }
-	      });
+        // $http.defaults.headers.common.Authorization = AuthService.getToken;
+
+		return $http.post('/api/events/add', data).success(function(data){
+			saveToken(data);
+		});
   	}
 
   	//Attend an event

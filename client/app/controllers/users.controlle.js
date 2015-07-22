@@ -9,7 +9,7 @@ angular.module('synerApp')
         UserService.getUsers()
         .success(function(data, status, headers) {
           $scope.allUsers = data;
-                    console.log($scope.allUsers);
+          console.log($scope.allUsers);
 
         })
     } 
@@ -18,7 +18,7 @@ angular.module('synerApp')
     $scope.addUser = function() {
       var data = 
           {
-              name      : $scope.userName,
+              name      : $scope.username,
               password  : $scope.password,
               role      : $scope.userRole
           }

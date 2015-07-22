@@ -9,38 +9,13 @@
 </header>
 
 <div class="container">
-  <h1 class="page-header">Add Event:</h1>
-  <form ng-submit="addEvent()">
-    <div class="form-group">
-      <label for="eventName">Name</label>
-      <input name="name" type="text" class="form-control" id="eventName" placeholder="Name" ng-model="eventName">
-    </div>
-    <div class="form-group">
-      <label for="eventLocation">Location</label>
-      <input name="location" type="text" class="form-control" id="eventLocation" placeholder="Location" ng-model="eventLocation">
-    </div>    
-    <div class="form-group">
-      <label for="eventDate">Date</label>
-      <input name="date" type="date" class="form-control" id="eventDate" placeholder="" ng-model="eventDate">
-    </div>
-    <div class="form-group">
-    <label for="eventTotalAttnds">Number of Attendees:</label>  
-      <select class="form-control" ng-model="eventTotalAttnds">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    </div>  
-    <button type="submit" class="btn btn-default" ng-click"addEvent()">Submit</button>
-  </form>
-
+  <br><br>
+  <div>Click <a href="/addEvent">here</a> to add an event.</div>
 </div>
 <br><br><br>
 <div class="container" data-ng-init="init()">
   <!-- Columns are always 50% wide, on mobile and desktop -->
-  <table class="table table-hover table table-condensed" ng-repeat="event in allEvents">
+  <table class="table table-hover table table-condensed" ng-repeat="event in allEvents track by $index">
     <tr>
       <td> <a ng-href="/eventInfo/{{event._id}}" ng-click="getEvent(event._id)">{{event.name}}</a></td>
       <td> {{event.location | uppercase}}</td>

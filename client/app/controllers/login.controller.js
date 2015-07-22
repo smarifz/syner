@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('synerApp')
-.controller("LoginCtrl", function ($scope, $location, $window, AuthService) {
+.controller("LoginCtrl", "AuthService", function ($scope, $location, $window, AuthService) {
 	
 	$scope.userInfo = null;
 	$scope.usernameStorage = "nobody";
 
 
     $scope.init = function(){
-    	if(authenticationSvc.isLoggedIn())
-    		$location.path("/");
+    	if(AuthService.isLoggedIn()){
+    		console.log("User logged in");
+            $location.path("/");
+        }
     }
 
     $scope.login = function () {
@@ -33,7 +35,7 @@ angular.module('synerApp')
     };
 
     $scope.getUserName = function(){
-    	return $scope.usernameStorage;
+    	return $AuthService.currentUser;
     }
 
 

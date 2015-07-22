@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('synerApp')
-  .controller('EventInfoCtrl', function ($scope, $routeParams, EventService, UserService) {
+  .controller('EventInfoCtrl', function ($scope, $routeParams, EventService, UserService, AuthService) {
     $scope.eventInfo = [];
     
 
@@ -9,33 +9,27 @@ angular.module('synerApp')
     $scope.init = function() {
           EventService.getEvent($routeParams.id).success(function(data){
           $scope.eventInfo = data;
+          console.log(data);
         })
     }
 
 
     $scope.willAttend = function() {
-    	
-    	UserService.getUser().success(function(data, status, headers) {
-        	console.log("user data: "+data);
+        //Get current user logged in
+        var user = AuthService.currentUser();
+        var data = 
+          {
+              id      	: $routeParams.id,
+              attendee  : user
+          }
 
-      });
+        //Sent user information to be added to Event document
+      	EventService.willAttend(data).success(function(data, status, headers) {
+            	$scope.init(); //Fill table with recent data from DB.
+            	console.log("Document updated.");
 
-
-
-		console.log("Controller - eventLocation var from UI: "+ $scope.attending);    		
-		var data = 
-		  {
-		      id      	: $routeParams.id,
-		      attendee  : user
-		  }
-
-
-    	EventService.willAttend(data).success(function(data, status, headers) {
-        	$scope.init(); //Fill table with recent data from DB.
-        	console.log("Document updated.");
-
-      });
-    } 
+          });
+        } 
 
 
   

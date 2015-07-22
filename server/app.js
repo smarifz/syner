@@ -21,7 +21,6 @@ if(config.seedDB) { require('./config/seed'); }
 
 // Setup server
 var app = express();
-app.use(passport.initialize());
 
 
 var server = require('http').createServer(app);
@@ -30,6 +29,8 @@ var router = express.Router();
 require('./config/passport')(app);
 require('./config/express')(app);
 require('./routes')(app);
+app.use(passport.initialize());
+
 
 
 app.use(passport.initialize());
