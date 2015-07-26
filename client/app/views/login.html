@@ -9,34 +9,50 @@
 </header>
 
 
-
-<div class="container" data-ng-init="init()">
-  <h1 class="page-header">Login:</h1>
-  <form ng-submit="logIn()">
-    <div class="form-group">
-      <label for="userName">Username:</label>
-      <input name="userName" type="text" class="form-control" id="userName" placeholder="username" ng-model="login.username">
+<table class="table">
+<tr>
+   <td>
+    <div data-ng-init="init()">
+      <h1 class="page-header">Login:</h1>
+      <form ng-submit="logIn()">
+        <div class="form-group">
+          <label for="userName">Username:</label>
+          <input name="userName" type="text" class="form-control" id="userName" placeholder="username" ng-model="login.username">
+        </div>
+        <div class="form-group">
+          <label for="login.passWord">Password:</label>
+          <input name="login.passWord" type="text" class="form-control" id="login.passWord" placeholder="password" ng-model="login.passWord">
+        </div> 
+        <button type="submit" class="btn btn-default">Sign In</button>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="login.passWord">Password:</label>
-      <input name="login.passWord" type="text" class="form-control" id="login.passWord" placeholder="login.passWord" ng-model="login.passWord">
-    </div> 
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
-</div>
-
-
-<div class="container" data-ng-init="init()">
-  <h1 class="page-header">Register:</h1>
-  <form ng-submit="register()">
-    <div class="form-group">
-      <label for="userName">Username:</label>
-      <input name="userName" type="text" class="form-control" id="userName" placeholder="username" ng-model="reg.username">
+  </td>
+  <td>
+    <div data-ng-init="init()">
+      <h1 class="page-header">Register:</h1>
+      <form ng-submit="register()">
+        <div class="form-group">
+          <label for="userName">Name:</label>
+          <input name="userName" type="text" class="form-control" id="userName" placeholder="name" ng-model="reg.name">
+        </div>
+        <div class="form-group">
+          <label for="userName">Username:</label>
+          <input name="userName" type="text" class="form-control" id="userName" placeholder="username" ng-model="reg.username">
+        </div>
+        <div class="form-group">
+          <label for="reg.passWord">Password:</label>
+          <input name="reg.passWord" type="text" class="form-control" id="reg.passWord" placeholder="password" ng-model="reg.passWord">
+        </div> 
+        <div class="form-group">
+          <label for="userName">Nomis Email:</label>
+          <input name="userName" type="text" class="form-control" id="userName" placeholder="nomis email" ng-model="reg.email">
+        </div>
+        <div class="form-group">
+          <label for="reg.passWord">Department:</label>
+          <input name="reg.passWord" type="text" class="form-control" id="reg.passWord" placeholder="department" ng-model="reg.department">
+        </div> 
+        <button type="submit" class="btn btn-default">Register</button>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="reg.passWord">Password:</label>
-      <input name="reg.passWord" type="text" class="form-control" id="reg.passWord" placeholder="reg.passWord" ng-model="reg.passWord">
-    </div> 
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
-</div>
+  </td>
+</tr>

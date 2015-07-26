@@ -9,8 +9,10 @@
 </header>
 <br><br>
 
-<div class="container" ng-click="willAttend()"type="text" data-ng-model="attending" id="attending" class="form-control">
-  <a> Attending </a>
+<div class="container">
+  You are currently: <a ng-init="reciprocal()" type="text" id="attending" ng-model"reciprocal()" > {{ reciprocal() }} </a> this event.
+  <br><br>
+  <button ng-click="attendingBridge()"> {{ attendingStatus }} </button>
 </div>
 
 
@@ -30,8 +32,12 @@
   </tr>
   <tr>
     <th> Players: </th>
-    <td ng-repeat="players in eventInfo.attendees">  {{ players }}</a></td>
+    <td ng-repeat="players in eventInfo.attendees" ng-if="$index < 9">  {{ players }}</a></td>
   </tr>
+  <tr>
+    <th> Subs: </th>
+    <td ng-repeat="players in eventInfo.attendees" ng-if="$index >= 9">  {{ players }}</a></td>
+  <tr>
 </table>
 </div>
 

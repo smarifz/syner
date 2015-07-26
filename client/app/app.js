@@ -59,6 +59,24 @@ var app = angular.module('synerApp', [
         }]}
       })
 
+      .when('/leagues', {
+        templateUrl: 'app/views/leagues.html',
+        controller: 'UserCtrl',
+        resolve: {
+          auth: ["$q", "AuthService", function($q, AuthService) {
+          var isUserLoggedIn = AuthService.isLoggedIn();
+          if(isUserLoggedIn){
+            console.log("User Logged in");
+            return $q.when(isUserLoggedIn);
+          }else{
+            console.log("ERROR - No User Logged in");
+            return $q.reject({ authenticated: false });
+          }
+        }]} 
+      })
+
+
+
       .when('/addEvent', {
         templateUrl: 'app/views/addEvent.html',
         controller: 'EventCtrl',
@@ -176,4 +194,16 @@ app.factory('myHttpResponseInterceptor',['$q','$location', '$window',function($q
 app.config(['$httpProvider',function($httpProvider) {
   $httpProvider.interceptors.push('myHttpResponseInterceptor');
 }]);
+
+
+//Filter used to capitalize first letter of a string
+app.filter('capitalize', function() {
+  return function(input, scope) {
+    if(input == null)
+      return;
+    if (input!=null)
+      input = input.toLowerCase();
+    return input.substring(0,1).toUpperCase()+input.substring(1);
+  }
+});
 

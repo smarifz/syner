@@ -2,35 +2,25 @@
 
 angular.module('synerApp')
   .controller('EventCtrl', function ($scope, EventService) {
+
+    //Local variables
     $scope.allEvents = [];
+
 
     //Initialize /////////////////////////////////////////////////////////////////////
     $scope.init = function() {
+        $scope.reloadAllEventsTable();
+    } 
+
+    //Initialize /////////////////////////////////////////////////////////////////////
+    $scope.reloadAllEventsTable = function() {
         EventService.getEvents()
         .success(function(data, status, headers) {
           $scope.allEvents = data;
         })
     } 
 
-    //Add an event /////////////////////////////////////////////////////////////////////
-    $scope.addEvent = function() {
-      var data = 
-          {
-              name      : $scope.eventName,
-              location  : $scope.eventLocation,
-              date      : $scope.eventDate,
-              attendees : $scope.eventTotalAttnds
-          }
 
-      console.log("addEvent data: "+data);
-      EventService.addEvent(data)
-        .success(function(data, status, headers) {
-        $scope.init(); //Fill table with recent data from DB.
-        $scope.clearFields(); //Clear input fields
-
-      });
-      
-    }
 
     //Get an Event via ID/////////////////////////////////////////////////////////////////////
     $scope.getEvent = function(id) {

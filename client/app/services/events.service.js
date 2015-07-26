@@ -13,20 +13,9 @@ angular.module('synerApp')
     	}
 
 
+
     //Sends all the data to http factory which calls the API
     var addEventRequest = function(eventData){
-      // return $http({
-	     //      url: '/api/events/add',
-	     //      method: "POST",
-	     //      data: 
-	     //      {
-	     //          name      : eventData.name,
-	     //          location  : eventData.location,
-	     //          date      : eventData.date,
-	     //          attendees : eventData.attendees
-	     //      },
-	     //      headers: {Authorization: 'JWT '+AuthService.getToken}
-	     //  });
 
   		var data = 
 	          {
@@ -35,14 +24,11 @@ angular.module('synerApp')
 	              date      : eventData.date,
 	              attendees : eventData.attendees
 	          }
-        // $http.defaults.headers.common.Authorization = AuthService.getToken;
 
-		return $http.post('/api/events/add', data).success(function(data){
-			saveToken(data);
-		});
+		return $http.post('/api/events/add', data).success(function(data){});
   	}
 
-  	//Attend an event
+  	//Will Attend an event
 	var willAttendRequest = function(data){
       	return $http({
 	      url: '/api/events/update/'+data.id,
@@ -53,7 +39,20 @@ angular.module('synerApp')
 	      }
 
 	  });
+	}
 
+
+  	//Will NOT Attend an event
+	var willNotAttendRequest = function(data){
+      	return $http({
+	      url: '/api/events/update/'+data.id,
+	      method: "PUT",
+	      data: 
+	      {
+	          $pull: { attendees: data.attendee } 
+	      }
+
+	  });
 	}
 
 	//Delete an event
@@ -70,7 +69,8 @@ angular.module('synerApp')
       		getEvent: function(id) { return getEventRequest(id); },
       		getEvents: function() { return getEventsRequest(); },
       		addEvent: function(eventData) { return addEventRequest(eventData); },
-      		willAttend: function (data) {return willAttendRequest(data); }
+      		willAttend: function (data) {return willAttendRequest(data); },
+      		willNotAttend: function (data) {return willNotAttendRequest(data); }
 
 		};
 
