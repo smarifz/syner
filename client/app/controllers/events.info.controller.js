@@ -125,6 +125,15 @@ angular.module('synerApp')
         else ($scope.attendingStatus == "Not Atend")
           return "Attending"
 
-        } 
+    }
+
+        //Clear input fields /////////////////////////////////////////////////////////////////////
+    $scope.clearFields = function(){
+       $scope.eventName = "";
+       $scope.eventLocation = "";
+       $scope.eventDate = "";
+       $scope.eventTotalAttnds = "";
+    }
+
   
   });

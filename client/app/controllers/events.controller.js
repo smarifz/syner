@@ -10,6 +10,7 @@ angular.module('synerApp')
     //Initialize /////////////////////////////////////////////////////////////////////
     $scope.init = function() {
         $scope.reloadAllEventsTable();
+        $scope.clearFields();
     } 
 
     //Initialize /////////////////////////////////////////////////////////////////////
@@ -39,10 +40,8 @@ angular.module('synerApp')
 
     //Clear input fields /////////////////////////////////////////////////////////////////////
     $scope.clearFields = function(){
-       $scope.eventName = "";
-       $scope.eventLocation = "";
-       $scope.eventDate = "";
-       $scope.eventTotalAttnds = "";
+       // $scope.eventName = "";
+
     }
 
   });
